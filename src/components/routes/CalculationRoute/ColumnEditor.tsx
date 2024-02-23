@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
-import { Column, ColumnType } from "../types";
-import Button from "../components/Button";
-import { generateRandomString } from "../utils";
+import { Column, ColumnType } from "../../../types";
+import Button from "../../Button";
+import { generateRandomString } from "../../../utils";
+import useStore from "../../../store/useStore";
 
 function ColumnList({
   title,
@@ -17,7 +18,7 @@ function ColumnList({
   return (
     <div className="mb-6">
       <h2 className="text-xl">{title}</h2>
-      <div className="border">
+      <div className="border p-4">
         {columns.map((column) => (
           <div key={column.id}>
             <input
@@ -29,20 +30,35 @@ function ColumnList({
             />
           </div>
         ))}
-        <Button onClick={addColumn}>add column</Button>
+        <div className="mt-4">
+          <Button onClick={addColumn}>add column</Button>
+        </div>
       </div>
     </div>
   );
 }
 
-export default function ColumnsPage({
-  columns: initialColumns,
-  setColumns: saveColumns,
-}: {
-  columns: Column[];
-  setColumns: (columns: Column[]) => void;
-}) {
-  const [columns, setColumns] = useState<Column[]>(initialColumns);
+export default function ColumnEditor() {
+  const { store, setStore } = useStore();
+  const [columns, setColumns] = useState<Column[]>(
+    store.columns || [
+      {
+        id: generateRandomString(),
+        name: "To Do",
+        type: ColumnType.Todo,
+      },
+      {
+        id: generateRandomString(),
+        name: "In Progress",
+        type: ColumnType.InProgress,
+      },
+      {
+        id: generateRandomString(),
+        name: "Done",
+        type: ColumnType.Done,
+      },
+    ]
+  );
   const { todoColumns, inProgressColumns, doneColumns } = useMemo(
     () => ({
       todoColumns: columns.filter((column) => column.type === ColumnType.Todo),
@@ -65,32 +81,37 @@ export default function ColumnsPage({
     ]);
   }
   function onSave() {
-    saveColumns(columns);
+    setStore((store) => ({
+      ...store,
+      view: store.scenarios ? "result" : "scenarios",
+      columns,
+    }));
   }
+
   return (
-    <div className="p-8">
+    <>
       <div>Columns</div>
       <div>
         <ColumnList
-          title="Todo"
+          title="Not started yet"
           columns={todoColumns}
           addColumn={() => addColumn(ColumnType.Todo)}
           updateColumn={updateColumn}
         />
         <ColumnList
-          title="In Progress"
+          title="On going"
           columns={inProgressColumns}
           addColumn={() => addColumn(ColumnType.InProgress)}
           updateColumn={updateColumn}
         />
         <ColumnList
-          title="Done"
+          title="Has been completed"
           columns={doneColumns}
           addColumn={() => addColumn(ColumnType.Done)}
           updateColumn={updateColumn}
         />
         <Button onClick={onSave}>Save</Button>
       </div>
-    </div>
+    </>
   );
 }

@@ -10,10 +10,16 @@ export type Column = {
   type: ColumnType;
 };
 
-export type AppData = {
-  statuses: Column[];
+export type Scenario = {
+  id: string;
+  points: number;
+  columnId: string;
 };
 
-export type AppPage = "welcome" | "columns";
+export type CalculationView = "columns" | "scenarios" | "result" | null;
 
-export type SetPage = (page: AppPage) => void;
+export type AppState = {
+  view: CalculationView;
+  columns: Column[] | null;
+  scenarios: Scenario[] | null;
+};

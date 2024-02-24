@@ -6,6 +6,7 @@ export type Scenario = {
 
 export type AppState = {
   name: string | null;
-  days: number | null;
+  remainingDays: number | null;
+  totalDays: number | null;
   scenarios: Scenario[] | null;
 };

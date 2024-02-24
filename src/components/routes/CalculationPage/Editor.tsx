@@ -19,7 +19,12 @@ export default function Editor() {
     ]
   );
   const [name, setName] = useState(store.name || "New ");
-  const [days, setDays] = useState<string>(store.days?.toString() || "");
+  const [totalDays, setTotalDays] = useState<string>(
+    store.totalDays?.toString() || ""
+  );
+  const [remainingDays, setRemainingDays] = useState<string>(
+    store.remainingDays?.toString() || ""
+  );
 
   function parseFormScenarios(sc: Scenario): FormScenario {
     return {
@@ -43,12 +48,11 @@ export default function Editor() {
   }
   function onSave() {
     // TODO: validate with react hook form
-
-    setStore((store) => ({
-      ...store,
+    setStore(() => ({
       view: "result",
       name,
-      days: parseNumber(days),
+      remainingDays: parseNumber(remainingDays),
+      totalDays: parseNumber(totalDays),
       scenarios: scenarios.map((sc) => ({
         id: sc.id,
         completed: parseNumber(sc.completed),
@@ -70,10 +74,18 @@ export default function Editor() {
         />
       </div>
       <div className="text-lg flex items-center space-x-4">
-        <label>Days in sprint</label>
+        <label>Days left in sprint</label>
         <input
-          value={days || 0}
-          onChange={(e) => setDays(trimNumber(e.target.value))}
+          value={remainingDays}
+          onChange={(e) => setRemainingDays(trimNumber(e.target.value))}
+          className="border p-1"
+        />
+      </div>
+      <div className="text-lg flex items-center space-x-4">
+        <label>Total days</label>
+        <input
+          value={totalDays}
+          onChange={(e) => setTotalDays(trimNumber(e.target.value))}
           className="border p-1"
         />
       </div>
@@ -144,10 +156,6 @@ function ScenarioRow({
 }
 
 function trimNumber(value: string) {
-  const parsedValue = value.replace(/[^\d.]/g, "");
-  // TODO: remove leading zeros
-  if (!parsedValue) {
-    return "";
-  }
-  return parsedValue;
+  return value;
+  // TODO: text
 }

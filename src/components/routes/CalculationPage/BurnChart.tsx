@@ -13,11 +13,13 @@ import { formatNumber } from "../../../utils";
 export default function BurnChart({
   itemsAtStart,
   days,
+  remainingDays,
   currentRate,
   optimumRate,
 }: {
   itemsAtStart: number;
   days: number;
+  remainingDays: number;
   currentRate: number;
   optimumRate: number;
 }) {
@@ -25,7 +27,7 @@ export default function BurnChart({
     const currentValue = itemsAtStart - i * currentRate;
     const optimumValue = itemsAtStart - i * optimumRate;
     return {
-      name: i,
+      name: i === days - Math.floor(remainingDays) - 1 ? `${i}(today)` : i,
       current: formatNumber(currentValue),
       optimum: formatNumber(optimumValue),
     };

@@ -22,6 +22,7 @@ export default function Result() {
     <div className="border p-4">
       <BurnChart
         days={totalDays}
+        remainingDays={remainingDays}
         itemsAtStart={totalItems}
         currentRate={currentRate}
         optimumRate={optimumRate}
@@ -52,13 +53,13 @@ export default function Result() {
               {/* TODO: show different color based on how easy or hard */}
               <span className="text-xl">{itemsTargetToday}</span>
             </td>
-            <td>is your target to get back on track</td>
+            <td>items today will get you to the optimum rate</td>
           </tr>
           <tr className="bg-slate-200">
             <td>
               <span className="text-xl">{formatNumber(projectedItems)}</span>
             </td>
-            <td>items is the projected end of the sprint</td>
+            <td>is the project number of completed items</td>
           </tr>
           <tr className="bg-slate-200">
             <td>

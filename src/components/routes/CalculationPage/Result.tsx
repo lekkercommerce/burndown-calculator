@@ -1,59 +1,28 @@
-import { useMemo, useState } from "react";
 import useStore from "../../../store/useStore";
 import BurnChart from "./BurnChart";
 import { formatNumber } from "../../../utils";
 
 export default function Result() {
   const {
-    store: { totalDays, remainingDays, scenarios },
+    store: { totalDays, remainingDays, completedItems, totalItems },
   } = useStore();
-  const [scenarioId, setScenarioId] = useState<string | undefined>();
-  const selectedScenario = useMemo(
-    () => scenarios?.find((sc) => sc.id === scenarioId) || scenarios?.[0],
-    [scenarios]
-  );
 
-  if (!scenarios || !selectedScenario) {
-    return null;
-  }
-
-  if (
-    !totalDays ||
-    !remainingDays ||
-    !selectedScenario.completed ||
-    !selectedScenario.total
-  ) {
+  if (!totalDays || !remainingDays || !completedItems || !totalItems) {
     return <div>Invalid data</div>;
   }
-
-  const currentRate = selectedScenario.completed / (totalDays - remainingDays);
-  const optimumRate = selectedScenario.total / totalDays;
-  const remainingItems = selectedScenario.total - selectedScenario.completed;
+  const currentRate = completedItems / (totalDays - remainingDays);
+  const optimumRate = totalItems / totalDays;
+  const remainingItems = totalItems - completedItems;
   const neededRate = remainingItems / remainingDays;
-  const projectedItems =
-    currentRate * remainingDays + selectedScenario.completed;
-  const carryOverItems = selectedScenario.total - projectedItems;
+  const projectedItems = currentRate * remainingDays + completedItems;
+  const carryOverItems = totalItems - projectedItems;
   const itemsTargetToday = remainingItems - (remainingDays - 1) * optimumRate;
 
   return (
     <div className="border p-4">
-      <div className="flex mb-4">
-        <div className="mr-4">Scenario</div>
-        <select
-          value={scenarioId}
-          onChange={(e) => setScenarioId(e.target.value)}
-          className="border"
-        >
-          {scenarios.map((sc) => (
-            <option key={sc.id} value={sc.id}>
-              {sc.id}
-            </option>
-          ))}
-        </select>
-      </div>
       <BurnChart
         days={totalDays}
-        itemsAtStart={selectedScenario.total}
+        itemsAtStart={totalItems}
         currentRate={currentRate}
         optimumRate={optimumRate}
       />

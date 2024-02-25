@@ -1,21 +1,23 @@
 import { useSearchParams } from "react-router-dom";
 import { AppState } from "../types";
-import { parseNumber, parseScenarios } from "../parser";
+import { parseNumber } from "../parser";
 
 const QUERY_PARAMS = {
   name: "name",
   remainingDays: "rDays",
   totalDays: "tDays",
-  scenarios: "scenarios",
+  completedItems: "completed_items",
+  totalItems: "total_items",
 };
 
 export default function useStore() {
   const [searchParams, setSearchParams] = useSearchParams();
   const store: AppState = {
     name: searchParams.get(QUERY_PARAMS.name),
-    totalDays: parseNumber(searchParams.get(QUERY_PARAMS.totalDays)),
     remainingDays: parseNumber(searchParams.get(QUERY_PARAMS.remainingDays)),
-    scenarios: parseScenarios(searchParams.get(QUERY_PARAMS.scenarios)),
+    totalDays: parseNumber(searchParams.get(QUERY_PARAMS.totalDays)),
+    completedItems: parseNumber(searchParams.get(QUERY_PARAMS.completedItems)),
+    totalItems: parseNumber(searchParams.get(QUERY_PARAMS.totalItems)),
   };
 
   function setStore(modifier: (state: AppState) => AppState) {
@@ -36,10 +38,16 @@ export default function useStore() {
         updatedState.totalDays.toString()
       );
     }
-    if (updatedState.scenarios) {
+    if (updatedState.completedItems) {
       updatedSearchParams.set(
-        QUERY_PARAMS.scenarios,
-        JSON.stringify(updatedState.scenarios)
+        QUERY_PARAMS.completedItems,
+        JSON.stringify(updatedState.completedItems)
+      );
+    }
+    if (updatedState.totalItems) {
+      updatedSearchParams.set(
+        QUERY_PARAMS.totalItems,
+        JSON.stringify(updatedState.totalItems)
       );
     }
     setSearchParams(updatedSearchParams);

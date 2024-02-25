@@ -1,23 +1,16 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Button from "../../Button";
-import { generateRandomString } from "../../../utils";
 import useStore from "../../../store/useStore";
 import { parseNumber } from "../../../parser";
-import { Scenario } from "../../../types";
 
-type FormScenario = {
-  id: string;
-  total: string;
-  completed: string;
-};
-
-export default function Editor() {
+export default function Editor({
+  formDirty,
+  setFormDirty,
+}: {
+  formDirty: boolean;
+  setFormDirty: (isDirty: boolean) => void;
+}) {
   const { store, setStore } = useStore();
-  const [scenarios, setScenarios] = useState<FormScenario[]>(
-    store.scenarios?.map(parseFormScenarios) || [
-      { id: generateRandomString(), total: "", completed: "" },
-    ]
-  );
   const [name, setName] = useState(store.name || "New ");
   const [totalDays, setTotalDays] = useState<string>(
     store.totalDays?.toString() || ""
@@ -25,40 +18,33 @@ export default function Editor() {
   const [remainingDays, setRemainingDays] = useState<string>(
     store.remainingDays?.toString() || ""
   );
+  const [completedItems, setCompletedItems] = useState<string>(
+    store.completedItems?.toString() || ""
+  );
+  const [totalItems, setTotalItems] = useState<string>(
+    store.totalItems?.toString() || ""
+  );
 
-  function parseFormScenarios(sc: Scenario): FormScenario {
-    return {
-      id: sc.id,
-      completed: sc.completed?.toString() || "",
-      total: sc.total?.toString() || "",
-    };
-  }
-
-  function addScenario() {
-    setScenarios([
-      ...scenarios,
-      { id: generateRandomString(), total: "0", completed: "0" },
-    ]);
-  }
-  function updateScenario(updatedScenario: FormScenario) {
-    setScenarios([
-      ...scenarios.filter((c) => c.id !== updatedScenario.id),
-      updatedScenario,
-    ]);
-  }
-  function onSave() {
-    // TODO: validate with react hook form
-    setStore(() => ({
-      view: "result",
+  const parseStateForStore = useCallback(
+    () => ({
       name,
       remainingDays: parseNumber(remainingDays),
       totalDays: parseNumber(totalDays),
-      scenarios: scenarios.map((sc) => ({
-        id: sc.id,
-        completed: parseNumber(sc.completed),
-        total: parseNumber(sc.total),
-      })),
-    }));
+      completedItems: parseNumber(completedItems),
+      totalItems: parseNumber(totalItems),
+    }),
+    [name, remainingDays, totalDays, completedItems, totalItems]
+  );
+
+  useEffect(() => {
+    setFormDirty(
+      JSON.stringify(parseStateForStore()) !== JSON.stringify(store)
+    );
+  }, [store, parseStateForStore, setFormDirty]);
+
+  function onSave() {
+    // TODO: validate with react hook form
+    setStore(() => parseStateForStore());
   }
 
   return (
@@ -73,89 +59,56 @@ export default function Editor() {
           className="border p-1 text-2xl"
         />
       </div>
-      <div className="text-lg flex items-center space-x-4">
-        <label>Days left in sprint</label>
-        <input
-          value={remainingDays}
-          onChange={(e) => setRemainingDays(trimNumber(e.target.value))}
-          className="border p-1"
-        />
-      </div>
-      <div className="text-lg flex items-center space-x-4">
-        <label>Total days</label>
-        <input
-          value={totalDays}
-          onChange={(e) => setTotalDays(trimNumber(e.target.value))}
-          className="border p-1"
-        />
-      </div>
-      <div className="border">
-        <div className="text-xl">Scenarios</div>
-        <table className="">
-          <thead>
-            <tr>
-              <th>Completed</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {scenarios.map((scenario) => (
-              <ScenarioRow
-                key={scenario.id}
-                scenario={scenario}
-                updateScenario={updateScenario}
+      <table className="editor">
+        <tbody>
+          <tr>
+            <th>Days left</th>
+            <td>
+              <input
+                value={remainingDays}
+                onChange={(e) => setRemainingDays(trimNumber(e.target.value))}
+                className="border p-1"
               />
-            ))}
-          </tbody>
-        </table>
-        <div className="my-4 ml-8">
-          <Button onClick={addScenario}>add scenario</Button>
-        </div>
-      </div>
-      <Button onClick={onSave}>Save</Button>
+            </td>
+          </tr>
+          <tr>
+            <th>Total days</th>
+            <td>
+              <input
+                value={totalDays}
+                onChange={(e) => setTotalDays(trimNumber(e.target.value))}
+                className="border p-1"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>Completed items</th>
+            <td>
+              <input
+                value={completedItems}
+                onChange={(e) => setCompletedItems(trimNumber(e.target.value))}
+                className="border p-1"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>Total items</th>
+            <td>
+              <input
+                value={totalItems}
+                onChange={(e) => setTotalItems(trimNumber(e.target.value))}
+                className="border p-1"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      {formDirty && <Button onClick={onSave}>Save</Button>}
     </div>
-  );
-}
-
-function ScenarioRow({
-  scenario,
-  updateScenario,
-}: {
-  scenario: FormScenario;
-  updateScenario: (updatedScenario: FormScenario) => void;
-}) {
-  return (
-    <tr key={scenario.id}>
-      <td>
-        <input
-          className="border text-right px-2"
-          type="text"
-          value={scenario.completed === null ? "" : scenario.completed}
-          onChange={(e) =>
-            updateScenario({
-              ...scenario,
-              completed: trimNumber(e.target.value),
-            })
-          }
-        />
-      </td>
-      <td>
-        <input
-          className="border text-right px-2"
-          value={scenario.total === null ? "" : scenario.total}
-          onChange={(e) =>
-            updateScenario({
-              ...scenario,
-              total: trimNumber(e.target.value),
-            })
-          }
-        />
-      </td>
-    </tr>
   );
 }
 
 function trimNumber(value: string) {
   return value;
-  // TODO: text
+  // TODO: remove text input validation
 }

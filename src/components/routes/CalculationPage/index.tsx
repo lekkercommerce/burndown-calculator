@@ -8,7 +8,9 @@ export default function CalculationPage() {
   return (
     <div className="p-8">
       <Editor formDirty={formDirty} setFormDirty={setFormDirty} />
-      {!formDirty && <Result />}
+      <div className="mt-8">
+        <Result />
+      </div>
     </div>
   );
 }

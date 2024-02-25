@@ -16,12 +16,14 @@ export default function BurnChart({
   remainingDays,
   currentRate,
   optimumRate,
+  color,
 }: {
   itemsAtStart: number;
   days: number;
   remainingDays: number;
   currentRate: number;
   optimumRate: number;
+  color: string;
 }) {
   const lineChartData = Array.from({ length: days + 1 }).map((_, i) => {
     const currentValue = itemsAtStart - i * currentRate;
@@ -48,13 +50,13 @@ export default function BurnChart({
             <Line
               type="monotone"
               dataKey="current"
-              stroke="#8884d8"
+              stroke={color}
               strokeWidth={4}
             />
             <Line
               type="monotone"
               dataKey="optimum"
-              stroke="#82ca9d"
+              stroke={"#2366ee"}
               strokeWidth={4}
             />
           </LineChart>

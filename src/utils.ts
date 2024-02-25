@@ -7,3 +7,13 @@ export function generateRandomString(length: number = 4): string {
   }
   return Date.now() + result;
 }
+
+export function formatNumber(number: number) {
+  // Check if the number is a float
+  if (Number.isInteger(number)) {
+    return number; // Return integer as it is
+  } else {
+    // Convert the number to a string with two decimal places
+    return parseFloat(number.toFixed(2));
+  }
+}

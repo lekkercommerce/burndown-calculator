@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import useStore from "../../../store/useStore";
-import Charts from "./Charts";
+import BurnChart from "./BurnChart";
+import { formatNumber } from "../../../utils";
 
 export default function Result() {
   const {
@@ -34,16 +35,6 @@ export default function Result() {
   const carryOverItems = selectedScenario.total - projectedItems;
   const itemsTargetToday = remainingItems - (remainingDays - 1) * optimumRate;
 
-  function formatNumber(number: number) {
-    // Check if the number is a float
-    if (Number.isInteger(number)) {
-      return number; // Return integer as it is
-    } else {
-      // Convert the number to a string with two decimal places
-      return parseFloat(number.toFixed(2));
-    }
-  }
-
   return (
     <div className="border p-4">
       <div className="flex mb-4">
@@ -60,9 +51,12 @@ export default function Result() {
           ))}
         </select>
       </div>
-      <div className="border text-center p-16 mb-4">
-        <Charts start={selectedScenario.total} projectedEnd={carryOverItems} />
-      </div>
+      <BurnChart
+        days={totalDays}
+        itemsAtStart={selectedScenario.total}
+        currentRate={currentRate}
+        optimumRate={optimumRate}
+      />
       <table>
         <tbody>
           <tr>

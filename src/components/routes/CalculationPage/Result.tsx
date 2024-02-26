@@ -15,7 +15,7 @@ export default function Result({ data }: { data: SprintData }) {
 
   return (
     <div className="p-4">
-      <div className="flex space-x-4">
+      <div className="flex space-x-4 mb-2.5">
         <div className="flex items-center">
           <div
             className={`w-4 h-4 rounded mr-1 ${styleVariants.success}`}
@@ -51,19 +51,19 @@ export default function Result({ data }: { data: SprintData }) {
             </td>
             <td>items today will get you to the optimum velocity</td>
           </tr>
-          <tr>
-            <td colSpan={2} className="pt-10"></td>
-          </tr>
-          <tr>
-            <td>
-              <div className={`stats-card ${colors.currentRate}`}>
-                {formatNumber(currentRate)}
-              </div>
-            </td>
-            <td>per day is the current velocity</td>
-          </tr>
           {currentRate !== optimumRate && (
             <>
+              <tr>
+                <td colSpan={2} className="pt-10"></td>
+              </tr>
+              <tr>
+                <td>
+                  <div className={`stats-card ${colors.currentRate}`}>
+                    {formatNumber(currentRate)}
+                  </div>
+                </td>
+                <td>per day is the current velocity</td>
+              </tr>
               <tr>
                 <td>
                   <div className={`stats-card ${colors.neededRate}`}>

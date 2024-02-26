@@ -8,12 +8,12 @@
   }
 
   .stats-table tr {
-    @apply border-b border-b-gray-500
+    @apply border-b border-b-gray-500 align-top
   }
 
   .stats-card {
     text-shadow: 1px 1px 1px #808080;
-    @apply text-center text-white font-semibold px-1.5 p-0.5 my-1 mr-1 text-xl rounded-md
+    @apply text-center text-white font-semibold px-1.5 p-0.5 my-1 mr-2 text-xl rounded-md
   }
 
   .stats-card.bg-warning {

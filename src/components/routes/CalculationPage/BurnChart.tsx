@@ -27,7 +27,7 @@ export default function BurnChart({
   optimumRate: number;
   color: string;
 }) {
-  const optimumValueColor = "#808080";
+  const optimumValueColor = "#efefef";
   const lineChartData = Array.from({ length: days + 1 }).map((_, i) => {
     const predictedValue = itemsAtStart - i * currentRate;
     const optimumValue = itemsAtStart - i * optimumRate;

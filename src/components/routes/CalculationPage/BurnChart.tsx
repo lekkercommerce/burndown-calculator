@@ -29,24 +29,23 @@ export default function BurnChart({
 }) {
   const optimumValueColor = "#808080";
   const lineChartData = Array.from({ length: days + 1 }).map((_, i) => {
-    const currentValue = itemsAtStart - i * currentRate;
+    const predictedValue = itemsAtStart - i * currentRate;
     const optimumValue = itemsAtStart - i * optimumRate;
     return {
       name: i === days - Math.floor(remainingDays) - 1 ? `${i}(today)` : i,
-      current: formatNumber(currentValue),
       optimum: formatNumber(optimumValue),
+      predicted: formatNumber(predictedValue),
     };
   });
   const barChartData = [
     {
-      name: "Velocity",
-      current: currentRate,
       optimum: optimumRate,
+      current: currentRate,
     },
   ];
   return (
-    <div className="border text-center border-gray-700 mb-4 w-full">
-      <div className="w-full pt-6 pb-4 pr-6 h-80">
+    <div className="text-center mb-4 w-full flex flex-col md:flex-row">
+      <div className="w-full md:w-1/2 pt-6 pb-4 pr-6 h-80">
         <div>Burn down</div>
         <ResponsiveContainer width="100%">
           <LineChart
@@ -66,14 +65,14 @@ export default function BurnChart({
             />
             <Line
               type="monotone"
-              dataKey="current"
+              dataKey="predicted"
               stroke={color}
               strokeWidth={4}
             />
           </LineChart>
         </ResponsiveContainer>
       </div>
-      <div className="w-full pt-6 pb-8 pr-6 h-80">
+      <div className="w-full md:w-1/2 mt-6 md:mt-0 pt-6 pb-8 pr-6 h-80">
         <div>Velocity</div>
         <ResponsiveContainer width="100%">
           <BarChart data={barChartData}>

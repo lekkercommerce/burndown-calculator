@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import Button from "../../Button";
 import useStore from "../../../store/useStore";
 import { parseNumber } from "../../../parser";
+import TextInput from "../../TextInput";
 
 export default function Editor({
   formDirty,
@@ -44,60 +45,54 @@ export default function Editor({
 
   function onSave() {
     // TODO: validate with react hook form
-    setStore(() => parseStateForStore());
+    const updatedStore = parseStateForStore();
+    console.log({ updatedStore });
+    setStore(() => updatedStore);
   }
 
   return (
-    <div className="p-8">
-      <div className=" mx-4 mb-4">
+    <div className="p-8 border flex flex-col items-center">
+      <div className="mx-4 mb-4">
         <a href="/calc" className="mr-4">
           <Button>RESET</Button>
         </a>
-        <input
-          value={name || ""}
-          onChange={(e) => setName(e.target.value)}
-          className="border p-1 text-2xl"
-        />
+        <TextInput value={name || ""} onChange={setName} large />
       </div>
-      <table className="editor">
+      <table className="editor mb-8">
         <tbody>
-          <tr>
-            <th>Days left</th>
-            <td>
-              <input
-                value={remainingDays}
-                onChange={(e) => setRemainingDays(trimNumber(e.target.value))}
-                className="border p-1"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>Total days</th>
-            <td>
-              <input
-                value={totalDays}
-                onChange={(e) => setTotalDays(trimNumber(e.target.value))}
-                className="border p-1"
-              />
-            </td>
-          </tr>
           <tr>
             <th>Completed items</th>
             <td>
-              <input
+              <TextInput
                 value={completedItems}
-                onChange={(e) => setCompletedItems(trimNumber(e.target.value))}
-                className="border p-1"
+                onChange={(value) => setCompletedItems(trimNumber(value))}
               />
             </td>
           </tr>
           <tr>
             <th>Total items</th>
             <td>
-              <input
+              <TextInput
                 value={totalItems}
-                onChange={(e) => setTotalItems(trimNumber(e.target.value))}
-                className="border p-1"
+                onChange={(value) => setTotalItems(trimNumber(value))}
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>Days left</th>
+            <td>
+              <TextInput
+                value={remainingDays}
+                onChange={(value) => setRemainingDays(trimNumber(value))}
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>Total days</th>
+            <td>
+              <TextInput
+                value={totalDays}
+                onChange={(value) => setTotalDays(trimNumber(value))}
               />
             </td>
           </tr>

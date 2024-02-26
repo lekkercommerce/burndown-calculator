@@ -26,25 +26,27 @@ export default function useStore() {
     if (updatedState.name) {
       updatedSearchParams.set(QUERY_PARAMS.name, updatedState.name);
     }
-    if (updatedState.remainingDays) {
+    if (updatedState.remainingDays !== null) {
       updatedSearchParams.set(
         QUERY_PARAMS.remainingDays,
         updatedState.remainingDays.toString()
       );
     }
-    if (updatedState.totalDays) {
+    if (updatedState.totalDays !== null) {
       updatedSearchParams.set(
         QUERY_PARAMS.totalDays,
         updatedState.totalDays.toString()
       );
     }
-    if (updatedState.completedItems) {
+    if (updatedState.completedItems !== null) {
+      console.log({ comple: JSON.stringify(updatedState.completedItems) });
+
       updatedSearchParams.set(
         QUERY_PARAMS.completedItems,
         JSON.stringify(updatedState.completedItems)
       );
     }
-    if (updatedState.totalItems) {
+    if (updatedState.totalItems !== null) {
       updatedSearchParams.set(
         QUERY_PARAMS.totalItems,
         JSON.stringify(updatedState.totalItems)

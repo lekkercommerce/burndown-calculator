@@ -9,3 +9,25 @@ export type AppState = {
   totalItems: number | null;
   completedItems: number | null;
 };
+
+export type SprintData = {
+  currentRate: number;
+  optimumRate: number;
+  remainingItems: number;
+  neededRate: number;
+  projectedItems: number;
+  carryOverItems: number;
+  itemsTargetToday: number;
+  source: {
+    remainingDays: number;
+    totalDays: number;
+    totalItems: number;
+    completedItems: number;
+  };
+  colors: {
+    currentRate: string;
+    targetRate: string;
+    neededRate: string;
+    line: string;
+  };
+};

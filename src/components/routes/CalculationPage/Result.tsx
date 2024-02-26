@@ -15,7 +15,7 @@ export default function Result({ data }: { data: SprintData }) {
 
   return (
     <div className="p-4">
-      <div className="my-4 flex space-x-4">
+      <div className="flex space-x-4">
         <div className="flex items-center">
           <div
             className={`w-4 h-4 rounded mr-1 ${styleVariants.success}`}
@@ -33,7 +33,7 @@ export default function Result({ data }: { data: SprintData }) {
           <div>Not good</div>
         </div>
       </div>
-      <table className="border-t-2">
+      <table className="stats-table">
         <tbody>
           <tr>
             <td>
@@ -41,25 +41,26 @@ export default function Result({ data }: { data: SprintData }) {
                 {formatNumber(optimumRate)}
               </div>
             </td>
-            <td>per day is the optimum speed</td>
+            <td>per day is the optimum velocity</td>
           </tr>
-          {currentRate < optimumRate && (
-            <tr>
-              <td>
-                <div className={`stats-card ${colors.targetRate} my-1.5`}>
-                  {itemsTargetToday >= 0 ? formatNumber(itemsTargetToday) : 0}
-                </div>
-              </td>
-              <td>items today will get you to the optimum speed</td>
-            </tr>
-          )}
-          <tr className={currentRate !== optimumRate ? "border-t-2" : ""}>
+          <tr>
+            <td>
+              <div className={`stats-card ${colors.targetRate} my-1.5`}>
+                {formatNumber(itemsTargetToday)}
+              </div>
+            </td>
+            <td>items today will get you to the optimum velocity</td>
+          </tr>
+          <tr>
+            <td colSpan={2} className="pt-10"></td>
+          </tr>
+          <tr>
             <td>
               <div className={`stats-card ${colors.currentRate}`}>
                 {formatNumber(currentRate)}
               </div>
             </td>
-            <td>per day is the current speed</td>
+            <td>per day is the current velocity</td>
           </tr>
           {currentRate !== optimumRate && (
             <>
@@ -69,9 +70,11 @@ export default function Result({ data }: { data: SprintData }) {
                     {formatNumber(neededRate)}
                   </div>
                 </td>
-                <td>per day is the speed you need to complete all the tasks</td>
+                <td>
+                  per day is the velocity you need to complete all the tasks
+                </td>
               </tr>
-              <tr className="border-t-2">
+              <tr>
                 <td>
                   <div className="stats-card bg-gray-500">
                     {formatNumber(projectedItems)}
@@ -96,7 +99,7 @@ export default function Result({ data }: { data: SprintData }) {
       </table>
       {currentRate === optimumRate && (
         <div
-          className={`rounded-md text-center text-white text-2xl py-6 ${styleVariants.success}`}
+          className={`rounded-md text-center text-white text-2xl py-6 px-10 mt-4 ${styleVariants.success}`}
         >
           The team is on track for a perfect finish
         </div>

@@ -87,20 +87,25 @@ export default function CalculationPage() {
 
   return (
     <div className="p-8">
-      <div className="flex flex-col md:flex-row mb-8">
+      <div className="mb-8 font-bold text-center text-3xl">
+        Burndown Calculator
+      </div>
+      <div className="flex flex-col md:flex-row">
         <Editor formDirty={formDirty} setFormDirty={setFormDirty} />
         {sprintData ? (
-          <div className="">
+          <div className={formDirty ? "opacity-5" : ""}>
             <Result data={sprintData} />
           </div>
         ) : (
-          <div className="flex justify-center items-center">
-            <h2>Results here</h2>
+          <div className="flex justify-center items-center w-full">
+            <h2>Some text about results here</h2>
           </div>
         )}
       </div>
       {sprintData && (
-        <div className="md:mb-80 border-t-2 md:border-t-0 pt-4 md:pt-0">
+        <div
+          className={`md:mb-80 pt-4 md:pt-0 ${formDirty ? "opacity-5" : ""}`}
+        >
           <BurnChart
             days={sprintData.source.totalDays}
             remainingDays={sprintData.source.remainingDays}
@@ -111,7 +116,7 @@ export default function CalculationPage() {
           />
         </div>
       )}
-      <div className="">Burn down</div>
+      <div className=" text-center">@something</div>
     </div>
   );
 }

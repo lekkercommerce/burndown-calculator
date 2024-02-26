@@ -26,6 +26,16 @@ export default function Editor({
     store.totalItems?.toString() || ""
   );
 
+  const discardChanges = useCallback(() => {
+    if (store) {
+      setName(store.name || "New ");
+      setTotalDays(store.totalDays?.toString() || "");
+      setRemainingDays(store.remainingDays?.toString() || "");
+      setCompletedItems(store.completedItems?.toString() || "");
+      setTotalItems(store.totalItems?.toString() || "");
+    }
+  }, [store]);
+
   const parseStateForStore = useCallback(
     () => ({
       name,
@@ -46,13 +56,12 @@ export default function Editor({
   function onSave() {
     // TODO: validate with react hook form
     const updatedStore = parseStateForStore();
-    console.log({ updatedStore });
     setStore(() => updatedStore);
   }
 
   return (
-    <div className="p-8 border flex flex-col items-center">
-      <div className="mx-4 mb-4">
+    <div className="p-2 border border-slate-500 flex flex-col items-center">
+      <div className="mb-4">
         <a href="/calc" className="mr-4">
           <Button>RESET</Button>
         </a>
@@ -100,7 +109,7 @@ export default function Editor({
       </table>
       {formDirty && (
         <div className="flex space-x-4">
-          <Button>Cancel</Button>
+          <Button onClick={discardChanges}>Cancel</Button>
           <Button onClick={onSave}>Save</Button>
         </div>
       )}

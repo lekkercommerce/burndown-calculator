@@ -6,4 +6,21 @@
   .editor th {
     @apply text-left px-4
   }
+
+  .stats-card {
+    text-shadow: 1px 1px 1.5px #808080;
+    @apply text-center text-white font-semibold p-2 m-1 text-xl rounded-md
+  }
+
+  .bg-success {
+    @apply bg-green-500
+  }
+
+  .bg-warning {
+    @apply bg-yellow-400
+  }
+
+  .bg-error {
+    @apply bg-red-500
+  }
 }

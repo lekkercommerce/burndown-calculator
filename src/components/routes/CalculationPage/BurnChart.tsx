@@ -1,4 +1,6 @@
 import {
+  Bar,
+  BarChart,
   CartesianGrid,
   Legend,
   Line,
@@ -25,6 +27,7 @@ export default function BurnChart({
   optimumRate: number;
   color: string;
 }) {
+  const optimumValueColor = "#808080";
   const lineChartData = Array.from({ length: days + 1 }).map((_, i) => {
     const currentValue = itemsAtStart - i * currentRate;
     const optimumValue = itemsAtStart - i * optimumRate;
@@ -34,9 +37,17 @@ export default function BurnChart({
       optimum: formatNumber(optimumValue),
     };
   });
+  const barChartData = [
+    {
+      name: "Velocity",
+      current: currentRate,
+      optimum: optimumRate,
+    },
+  ];
   return (
     <div className="border text-center border-gray-700 mb-4 w-full">
       <div className="w-full pt-6 pb-4 pr-6 h-80">
+        <div>Burn down</div>
         <ResponsiveContainer width="100%">
           <LineChart
             data={lineChartData}
@@ -49,17 +60,30 @@ export default function BurnChart({
             <Legend />
             <Line
               type="monotone"
-              dataKey="current"
-              stroke={color}
+              dataKey="optimum"
+              stroke={optimumValueColor}
               strokeWidth={4}
             />
             <Line
               type="monotone"
-              dataKey="optimum"
-              stroke={"#2366ee"}
+              dataKey="current"
+              stroke={color}
               strokeWidth={4}
             />
           </LineChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="w-full pt-6 pb-8 pr-6 h-80">
+        <div>Velocity</div>
+        <ResponsiveContainer width="100%">
+          <BarChart data={barChartData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis tick={false} />
+            <YAxis />
+            <Legend />
+            <Bar dataKey="optimum" fill={optimumValueColor} />
+            <Bar dataKey="current" fill={color} />
+          </BarChart>
         </ResponsiveContainer>
       </div>
     </div>

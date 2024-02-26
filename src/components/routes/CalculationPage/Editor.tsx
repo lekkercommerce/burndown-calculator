@@ -98,7 +98,12 @@ export default function Editor({
           </tr>
         </tbody>
       </table>
-      {formDirty && <Button onClick={onSave}>Save</Button>}
+      {formDirty && (
+        <div className="flex space-x-4">
+          <Button>Cancel</Button>
+          <Button onClick={onSave}>Save</Button>
+        </div>
+      )}
     </div>
   );
 }

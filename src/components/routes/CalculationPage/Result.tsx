@@ -43,6 +43,16 @@ export default function Result({ data }: { data: SprintData }) {
             </td>
             <td>per day is the optimum speed</td>
           </tr>
+          {currentRate < optimumRate && (
+            <tr>
+              <td>
+                <div className={`stats-card ${colors.targetRate} my-1.5`}>
+                  {itemsTargetToday >= 0 ? formatNumber(itemsTargetToday) : 0}
+                </div>
+              </td>
+              <td>items today will get you to the optimum speed</td>
+            </tr>
+          )}
           <tr className={currentRate !== optimumRate ? "border-t-2" : ""}>
             <td>
               <div className={`stats-card ${colors.currentRate}`}>
@@ -61,15 +71,7 @@ export default function Result({ data }: { data: SprintData }) {
                 </td>
                 <td>per day is the speed you need to complete all the tasks</td>
               </tr>
-              <tr className="border-b-2">
-                <td>
-                  <div className={`stats-card ${colors.targetRate} my-1.5`}>
-                    {formatNumber(itemsTargetToday)}
-                  </div>
-                </td>
-                <td>items today will get you to the optimum speed</td>
-              </tr>
-              <tr>
+              <tr className="border-t-2">
                 <td>
                   <div className="stats-card bg-gray-500">
                     {formatNumber(projectedItems)}
@@ -83,16 +85,10 @@ export default function Result({ data }: { data: SprintData }) {
               <tr>
                 <td>
                   <div className="stats-card bg-gray-500">
-                    {carryOverItems < 0
-                      ? formatNumber(-carryOverItems)
-                      : formatNumber(carryOverItems)}
+                    {formatNumber(carryOverItems)}
                   </div>
                 </td>
-                <td>
-                  {carryOverItems < 0
-                    ? "items can be pulled into the sprint at the current rate"
-                    : "items will be incomplete at the end of the sprint"}
-                </td>
+                <td>items will be left at the end of the sprint</td>
               </tr>
             </>
           )}

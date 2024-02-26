@@ -27,7 +27,7 @@ export default function CalculationPage() {
     const remainingItems = totalItems - completedItems;
     const neededRate = remainingItems / remainingDays;
     const projectedItems = currentRate * remainingDays + completedItems;
-    const itemsTargetToday = remainingItems - (remainingDays - 1) * optimumRate;
+    const itemsTargetToday = remainingItems - remainingDays * optimumRate;
 
     // Set colors
     let currentRateColor = styleVariants.success;
@@ -35,7 +35,7 @@ export default function CalculationPage() {
     let neededRateColor = styleVariants.success;
     let line = "#82ca9d";
     const currentVsOptimum = currentRate / optimumRate;
-    const optimumVsTarget = optimumRate / itemsTargetToday;
+    const targetVsOptimum = itemsTargetToday / optimumRate;
     const optimumVsNeeded = optimumRate / neededRate;
 
     // set stat colors
@@ -47,10 +47,10 @@ export default function CalculationPage() {
       currentRateColor = styleVariants.warning;
       line = "#FDdc47";
     }
-    if (optimumVsTarget < 1.2) {
+    if (targetVsOptimum > 1.2) {
       targetRateColor = styleVariants.error;
     }
-    if (1 < optimumVsTarget && optimumVsTarget <= 1.2) {
+    if (1 < targetVsOptimum && targetVsOptimum <= 1.2) {
       targetRateColor = styleVariants.warning;
     }
     if (optimumVsNeeded < 0.75) {
@@ -83,7 +83,7 @@ export default function CalculationPage() {
     };
 
     return calculation;
-  }, []);
+  }, [totalDays, remainingDays, completedItems, totalItems]);
 
   return (
     <div className="p-8">
@@ -100,7 +100,7 @@ export default function CalculationPage() {
         )}
       </div>
       {sprintData && (
-        <div className="mb-80">
+        <div className="md:mb-80 border-t-2 md:border-t-0 pt-4 md:pt-0">
           <BurnChart
             days={sprintData.source.totalDays}
             remainingDays={sprintData.source.remainingDays}

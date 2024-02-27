@@ -93,8 +93,8 @@ export default function CalculationPage() {
   }, [totalDays, remainingDays, completedItems, totalItems, completionTarget]);
 
   return (
-    <div className="p-6">
-      <div className="mb-4 font-bold text-center text-3xl">
+    <div className="px-2 pt-2 pb-4">
+      <div className="md:hidden mt-2.5 mb-4 font-bold text-center text-3xl">
         Burndown Calculator
       </div>
       <div className="flex flex-col md:flex-row">
@@ -103,20 +103,31 @@ export default function CalculationPage() {
           setFormDirty={setFormDirty}
           hasSprintData={!!sprintData}
         />
-        {sprintData ? (
-          <div className={formDirty ? "opacity-5" : ""}>
-            <Result data={sprintData} />
+        <div className="md:*:pl-16">
+          <div className="hidden md:block mt-2.5 font-bold text-center text-3xl">
+            Burndown Calculator
           </div>
-        ) : (
-          <div className="flex justify-center items-center w-full p-8">
-            <div>
-              <p>Some text about results here</p>
-              <p>Some other text</p>
+          {sprintData ? (
+            <div
+              className={`px-4 py-10 md:py-4 ${formDirty ? "opacity-5" : ""}`}
+            >
+              <Result data={sprintData} />
             </div>
-          </div>
-        )}
+          ) : (
+            <div className="flex justify-center items-center w-full p-8">
+              <div>
+                <p>Some text about results here</p>
+                <p>Some other text</p>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-      <div className={`md:mb-80 pt-4 md:pt-0 ${formDirty ? "opacity-5" : ""}`}>
+      <div
+        className={`md:mb-80 pt-4 md:pt-0 border-t md:border-t-0 border-gray-500 ${
+          formDirty ? "opacity-5" : ""
+        }`}
+      >
         {sprintData && !formDirty && (
           <BurnChart
             days={sprintData.totalDays}

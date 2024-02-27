@@ -44,7 +44,7 @@ export default function BurnChart({
     },
   ];
   return (
-    <div className="text-center mb-4 w-full flex flex-col md:flex-row border-t md:border-t-0 border-gray-500">
+    <div className="text-center mb-4 w-full flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 pt-6 pb-4 pr-6 h-80">
         <div className="font-bold">Burn down chart</div>
         <ResponsiveContainer width="100%">

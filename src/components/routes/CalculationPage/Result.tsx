@@ -14,7 +14,7 @@ export default function Result({ data }: { data: SprintData }) {
   } = data;
 
   return (
-    <div className="p-4">
+    <>
       <div className="flex space-x-4 mb-2.5">
         <div className="flex items-center">
           <div
@@ -101,6 +101,6 @@ export default function Result({ data }: { data: SprintData }) {
           On track for a perfect finish
         </div>
       )}
-    </div>
+    </>
   );
 }

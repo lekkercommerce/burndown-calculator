@@ -4,10 +4,10 @@ import { parseNumber } from "../parser";
 
 const QUERY_PARAMS = {
   name: "name",
-  remainingDays: "rDays",
-  totalDays: "tDays",
+  remainingDays: "remaining_days",
+  totalDays: "days",
   completedItems: "completed_items",
-  totalItems: "total_items",
+  totalItems: "items",
   completionTarget: "target",
 };
 

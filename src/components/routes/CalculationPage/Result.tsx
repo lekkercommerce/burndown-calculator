@@ -73,7 +73,7 @@ export default function Result({ data }: { data: SprintData }) {
               </tr>
               <tr className="border-t-4">
                 <td>
-                  <div className="stats-card bg-gray-600">
+                  <div className="stats-card bg-gray-700">
                     {formatNumber(projectedItems)}
                   </div>
                 </td>
@@ -84,7 +84,7 @@ export default function Result({ data }: { data: SprintData }) {
               </tr>
               <tr>
                 <td>
-                  <div className="stats-card bg-gray-600">
+                  <div className="stats-card bg-gray-700">
                     {formatNumber(carryOverItems)}
                   </div>
                 </td>

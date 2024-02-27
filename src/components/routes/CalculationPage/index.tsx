@@ -28,6 +28,8 @@ export default function CalculationPage() {
     ) {
       return null;
     }
+    // TODO: validate if given app state is valid for sprint data
+
     // calculate values
     const currentRate = completedItems / (totalDays - remainingDays);
     const optimumRate = totalItems / totalDays;
@@ -36,7 +38,7 @@ export default function CalculationPage() {
     const projectedItems = currentRate * remainingDays + completedItems;
     const itemsTargetToday = remainingItems - remainingDays * optimumRate;
 
-    // Set colors
+    // define stat colors
     let currentRateColor = styleVariants.success;
     let targetRateColor = styleVariants.success;
     let neededRateColor = styleVariants.success;
@@ -93,7 +95,7 @@ export default function CalculationPage() {
   }, [totalDays, remainingDays, completedItems, totalItems, completionTarget]);
 
   return (
-    <div className="px-2 pt-2 pb-4">
+    <div className="px-2 pt-2 pb-8">
       <div className="md:hidden mt-2.5 mb-4 font-bold text-center text-3xl">
         Burndown Calculator
       </div>
@@ -124,7 +126,7 @@ export default function CalculationPage() {
         </div>
       </div>
       <div
-        className={`md:mb-80 pt-4 md:pt-0 border-t md:border-t-0 border-gray-500 ${
+        className={`md:mb-16 pt-4 md:pt-0 border-t md:border-t-0 border-gray-500 ${
           formDirty ? "opacity-5" : ""
         }`}
       >

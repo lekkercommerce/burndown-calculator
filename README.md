@@ -38,12 +38,13 @@ yarn dev
 
 ## Todo
 
-- [ ] Improve number trimmer function in editor
+- [ ] Improve reset button look
+- [ ] Confirmation dialog before reset
 - [ ] Validate current store data before displaying results
 - [ ] Add share button that copies link to clipboard and shows a text box you can also copy from
-- [ ] Add analytics
-- [ ] Confirmation dialog before reset
+- [ ] Improve number trimmer function in editor
 - [ ] Add nice meta tags with summary and image
+- [ ] Add analytics
 - [ ] Add content to welcome page
 - [ ] Add text blurb to empty form
 - [ ] Add pages with agile and scrum content

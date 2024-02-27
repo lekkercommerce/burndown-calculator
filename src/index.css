@@ -8,11 +8,11 @@
   }
 
   .editor th {
-    @apply text-left px-4 align-top
+    @apply text-left px-4
   }
 
   .editor td {
-    @apply pb-2
+    @apply py-1
   }
 
   .stats-table tr {

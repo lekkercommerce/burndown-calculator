@@ -27,6 +27,9 @@ export default function Editor({
   const [totalItems, setTotalItems] = useState<string>(
     store.totalItems?.toString() || ""
   );
+  const [completionTarget, setCompletionTarget] = useState<string>(
+    store.completionTarget?.toString() || "80"
+  );
 
   const discardChanges = useCallback(() => {
     if (store) {
@@ -35,6 +38,7 @@ export default function Editor({
       setRemainingDays(store.remainingDays?.toString() || "");
       setCompletedItems(store.completedItems?.toString() || "");
       setTotalItems(store.totalItems?.toString() || "");
+      setCompletionTarget(store.completionTarget?.toString() || "");
     }
   }, [store]);
 
@@ -45,8 +49,16 @@ export default function Editor({
       totalDays: parseNumber(totalDays),
       completedItems: parseNumber(completedItems),
       totalItems: parseNumber(totalItems),
+      completionTarget: parseNumber(completionTarget),
     }),
-    [name, remainingDays, totalDays, completedItems, totalItems]
+    [
+      name,
+      remainingDays,
+      totalDays,
+      completedItems,
+      totalItems,
+      completionTarget,
+    ]
   );
 
   useEffect(() => {
@@ -104,6 +116,15 @@ export default function Editor({
               <TextInput
                 value={totalDays}
                 onChange={(value) => setTotalDays(trimNumber(value))}
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>Target %</th>
+            <td>
+              <TextInput
+                value={completionTarget}
+                onChange={(value) => setCompletionTarget(trimNumber(value))}
               />
             </td>
           </tr>

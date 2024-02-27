@@ -9,7 +9,13 @@ import { styleVariants } from "../../../constants";
 export default function CalculationPage() {
   const [formDirty, setFormDirty] = useState(false);
   const {
-    store: { totalDays, remainingDays, completedItems, totalItems },
+    store: {
+      totalDays,
+      remainingDays,
+      completedItems,
+      totalItems,
+      completionTarget,
+    },
   } = useStore();
 
   const sprintData = useMemo<SprintData | null>(() => {
@@ -17,7 +23,8 @@ export default function CalculationPage() {
       totalDays == null ||
       remainingDays == null ||
       completedItems == null ||
-      totalItems == null
+      totalItems == null ||
+      completionTarget == null
     ) {
       return null;
     }
@@ -37,13 +44,14 @@ export default function CalculationPage() {
     const currentVsOptimum = currentRate / optimumRate;
     const targetVsOptimum = itemsTargetToday / optimumRate;
     const optimumVsNeeded = optimumRate / neededRate;
+    const targetPercentage = completionTarget / 100;
 
     // set stat colors
-    if (currentVsOptimum < 0.75) {
+    if (currentVsOptimum < targetPercentage) {
       currentRateColor = styleVariants.error;
       line = "#ff5252";
     }
-    if (1 > currentVsOptimum && currentVsOptimum >= 0.75) {
+    if (1 > currentVsOptimum && currentVsOptimum >= targetPercentage) {
       currentRateColor = styleVariants.warning;
       line = "#FDdc47";
     }
@@ -53,10 +61,10 @@ export default function CalculationPage() {
     if (1 < targetVsOptimum && targetVsOptimum <= 1.2) {
       targetRateColor = styleVariants.warning;
     }
-    if (optimumVsNeeded < 0.75) {
+    if (optimumVsNeeded < targetPercentage) {
       neededRateColor = styleVariants.error;
     }
-    if (1 > optimumVsNeeded && optimumVsNeeded >= 0.75) {
+    if (1 > optimumVsNeeded && optimumVsNeeded >= targetPercentage) {
       neededRateColor = styleVariants.warning;
     }
 
@@ -68,12 +76,11 @@ export default function CalculationPage() {
       projectedItems,
       carryOverItems: totalItems - projectedItems,
       itemsTargetToday,
-      source: {
-        totalDays,
-        remainingDays,
-        completedItems,
-        totalItems,
-      },
+      totalDays,
+      remainingDays,
+      completedItems,
+      totalItems,
+      completionTarget,
       colors: {
         currentRate: currentRateColor,
         targetRate: targetRateColor,
@@ -83,7 +90,7 @@ export default function CalculationPage() {
     };
 
     return calculation;
-  }, [totalDays, remainingDays, completedItems, totalItems]);
+  }, [totalDays, remainingDays, completedItems, totalItems, completionTarget]);
 
   return (
     <div className="p-6">
@@ -112,9 +119,9 @@ export default function CalculationPage() {
       <div className={`md:mb-80 pt-4 md:pt-0 ${formDirty ? "opacity-5" : ""}`}>
         {sprintData && !formDirty && (
           <BurnChart
-            days={sprintData.source.totalDays}
-            remainingDays={sprintData.source.remainingDays}
-            itemsAtStart={sprintData.source.totalItems}
+            days={sprintData.totalDays}
+            remainingDays={sprintData.remainingDays}
+            itemsAtStart={sprintData.totalItems}
             currentRate={sprintData.currentRate}
             optimumRate={sprintData.optimumRate}
             color={sprintData.colors.line}

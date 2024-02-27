@@ -8,6 +8,7 @@ const QUERY_PARAMS = {
   totalDays: "tDays",
   completedItems: "completed_items",
   totalItems: "total_items",
+  completionTarget: "target",
 };
 
 export default function useStore() {
@@ -18,6 +19,9 @@ export default function useStore() {
     totalDays: parseNumber(searchParams.get(QUERY_PARAMS.totalDays)),
     completedItems: parseNumber(searchParams.get(QUERY_PARAMS.completedItems)),
     totalItems: parseNumber(searchParams.get(QUERY_PARAMS.totalItems)),
+    completionTarget: parseNumber(
+      searchParams.get(QUERY_PARAMS.completionTarget)
+    ),
   };
 
   function setStore(modifier: (state: AppState) => AppState) {
@@ -50,6 +54,12 @@ export default function useStore() {
       updatedSearchParams.set(
         QUERY_PARAMS.totalItems,
         JSON.stringify(updatedState.totalItems)
+      );
+    }
+    if (updatedState.completionTarget !== null) {
+      updatedSearchParams.set(
+        QUERY_PARAMS.completionTarget,
+        updatedState.completionTarget.toString()
       );
     }
     setSearchParams(updatedSearchParams);

@@ -16,7 +16,7 @@
   }
 
   .stats-table tr {
-    @apply border-t border-gray-500 align-top
+    @apply border-b border-gray-500 align-top
   }
 
   .stats-table td {
@@ -26,6 +26,10 @@
   .stats-card {
     text-shadow: 1px 1px 1px #808080;
     @apply text-center text-white font-semibold px-1.5 py-0.5 mr-2 text-xl rounded-md
+  }
+
+  .stats-card.stats-card-main {
+    @apply px-2.5 py-2 mr-2.5 text-5xl h-fit
   }
 
   .stats-card.bg-warning {

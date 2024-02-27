@@ -7,9 +7,9 @@ export default function Result({ data }: { data: SprintData }) {
     currentRate,
     optimumRate,
     neededRate,
-    projectedItems,
-    carryOverItems,
-    itemsTargetToday,
+    projectedPoints,
+    carryOverPoints,
+    pointsTargetToday,
     colors,
   } = data;
 
@@ -33,6 +33,12 @@ export default function Result({ data }: { data: SprintData }) {
           <div>Not good</div>
         </div>
       </div>
+      <div className="flex items-center border-b-4 pb-3">
+        <div className={`stats-card stats-card-main ${colors.targetRate}`}>
+          {formatNumber(pointsTargetToday)}
+        </div>
+        <div className="text-2xl">points today will get you on track</div>
+      </div>
       <table className="stats-table">
         <tbody>
           <tr>
@@ -42,14 +48,6 @@ export default function Result({ data }: { data: SprintData }) {
               </div>
             </td>
             <td>per day is the optimum velocity</td>
-          </tr>
-          <tr>
-            <td>
-              <div className={`stats-card ${colors.targetRate}`}>
-                {formatNumber(itemsTargetToday)}
-              </div>
-            </td>
-            <td>items today will get you to the optimum velocity</td>
           </tr>
           {currentRate !== optimumRate && (
             <>
@@ -74,21 +72,21 @@ export default function Result({ data }: { data: SprintData }) {
               <tr className="border-t-4">
                 <td>
                   <div className="stats-card bg-gray-700">
-                    {formatNumber(projectedItems)}
+                    {formatNumber(projectedPoints)}
                   </div>
                 </td>
                 <td>
-                  is the predicted number of completed items at the end of the
+                  is the predicted number of completed points at the end of the
                   sprint
                 </td>
               </tr>
               <tr>
                 <td>
                   <div className="stats-card bg-gray-700">
-                    {formatNumber(carryOverItems)}
+                    {formatNumber(carryOverPoints)}
                   </div>
                 </td>
-                <td>items will be left at the end of the sprint</td>
+                <td>points will be left at the end of the sprint</td>
               </tr>
             </>
           )}

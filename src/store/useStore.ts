@@ -6,8 +6,8 @@ const QUERY_PARAMS = {
   name: "name",
   remainingDays: "remaining_days",
   totalDays: "days",
-  completedItems: "completed_items",
-  totalItems: "items",
+  completedPoints: "completed_points",
+  totalPoints: "points",
   completionTarget: "target",
 };
 
@@ -17,8 +17,10 @@ export default function useStore() {
     name: searchParams.get(QUERY_PARAMS.name),
     remainingDays: parseNumber(searchParams.get(QUERY_PARAMS.remainingDays)),
     totalDays: parseNumber(searchParams.get(QUERY_PARAMS.totalDays)),
-    completedItems: parseNumber(searchParams.get(QUERY_PARAMS.completedItems)),
-    totalItems: parseNumber(searchParams.get(QUERY_PARAMS.totalItems)),
+    completedPoints: parseNumber(
+      searchParams.get(QUERY_PARAMS.completedPoints)
+    ),
+    totalPoints: parseNumber(searchParams.get(QUERY_PARAMS.totalPoints)),
     completionTarget: parseNumber(
       searchParams.get(QUERY_PARAMS.completionTarget)
     ),
@@ -42,18 +44,16 @@ export default function useStore() {
         updatedState.totalDays.toString()
       );
     }
-    if (updatedState.completedItems !== null) {
-      console.log({ comple: JSON.stringify(updatedState.completedItems) });
-
+    if (updatedState.completedPoints !== null) {
       updatedSearchParams.set(
-        QUERY_PARAMS.completedItems,
-        JSON.stringify(updatedState.completedItems)
+        QUERY_PARAMS.completedPoints,
+        JSON.stringify(updatedState.completedPoints)
       );
     }
-    if (updatedState.totalItems !== null) {
+    if (updatedState.totalPoints !== null) {
       updatedSearchParams.set(
-        QUERY_PARAMS.totalItems,
-        JSON.stringify(updatedState.totalItems)
+        QUERY_PARAMS.totalPoints,
+        JSON.stringify(updatedState.totalPoints)
       );
     }
     if (updatedState.completionTarget !== null) {

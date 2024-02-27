@@ -13,8 +13,8 @@ export default function CalculationPage() {
     store: {
       totalDays,
       remainingDays,
-      completedItems,
-      totalItems,
+      completedPoints,
+      totalPoints,
       completionTarget,
     },
   } = useStore();
@@ -23,8 +23,8 @@ export default function CalculationPage() {
     if (
       totalDays == null ||
       remainingDays == null ||
-      completedItems == null ||
-      totalItems == null ||
+      completedPoints == null ||
+      totalPoints == null ||
       completionTarget == null
     ) {
       return null;
@@ -32,12 +32,12 @@ export default function CalculationPage() {
     // TODO: validate if given app state is valid for sprint data
 
     // calculate values
-    const currentRate = completedItems / (totalDays - remainingDays);
-    const optimumRate = totalItems / totalDays;
-    const remainingItems = totalItems - completedItems;
-    const neededRate = remainingItems / remainingDays;
-    const projectedItems = currentRate * remainingDays + completedItems;
-    const itemsTargetToday = remainingItems - remainingDays * optimumRate;
+    const currentRate = completedPoints / (totalDays - remainingDays);
+    const optimumRate = totalPoints / totalDays;
+    const remainingPoints = totalPoints - completedPoints;
+    const neededRate = remainingPoints / remainingDays;
+    const projectedPoints = currentRate * remainingDays + completedPoints;
+    const pointsTargetToday = remainingPoints - remainingDays * optimumRate;
 
     // define stat colors
     let currentRateColor = styleVariants.success;
@@ -45,7 +45,7 @@ export default function CalculationPage() {
     let neededRateColor = styleVariants.success;
     let line = "#82ca9d";
     const currentVsOptimum = currentRate / optimumRate;
-    const targetVsOptimum = itemsTargetToday / optimumRate;
+    const targetVsOptimum = pointsTargetToday / optimumRate;
     const optimumVsNeeded = optimumRate / neededRate;
     const targetPercentage = completionTarget / 100;
 
@@ -74,15 +74,15 @@ export default function CalculationPage() {
     const calculation: SprintData = {
       currentRate,
       optimumRate,
-      remainingItems,
-      neededRate: remainingItems / remainingDays,
-      projectedItems,
-      carryOverItems: totalItems - projectedItems,
-      itemsTargetToday,
+      remainingPoints,
+      neededRate: remainingPoints / remainingDays,
+      projectedPoints,
+      carryOverPoints: totalPoints - projectedPoints,
+      pointsTargetToday,
       totalDays,
       remainingDays,
-      completedItems,
-      totalItems,
+      completedPoints,
+      totalPoints,
       completionTarget,
       colors: {
         currentRate: currentRateColor,
@@ -93,7 +93,13 @@ export default function CalculationPage() {
     };
 
     return calculation;
-  }, [totalDays, remainingDays, completedItems, totalItems, completionTarget]);
+  }, [
+    totalDays,
+    remainingDays,
+    completedPoints,
+    totalPoints,
+    completionTarget,
+  ]);
 
   return (
     <div className="px-2 pt-2 pb-8">
@@ -139,7 +145,7 @@ export default function CalculationPage() {
           <BurnChart
             days={sprintData.totalDays}
             remainingDays={sprintData.remainingDays}
-            itemsAtStart={sprintData.totalItems}
+            pointsAtStart={sprintData.totalPoints}
             currentRate={sprintData.currentRate}
             optimumRate={sprintData.optimumRate}
             color={sprintData.colors.line}

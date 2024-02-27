@@ -6,24 +6,24 @@ export type AppState = {
   name: string | null;
   remainingDays: number | null;
   totalDays: number | null;
-  totalItems: number | null;
-  completedItems: number | null;
+  totalPoints: number | null;
+  completedPoints: number | null;
   completionTarget: number | null;
 };
 
 export type SprintData = {
   currentRate: number;
   optimumRate: number;
-  remainingItems: number;
+  remainingPoints: number;
   neededRate: number;
-  projectedItems: number;
-  carryOverItems: number;
-  itemsTargetToday: number;
+  projectedPoints: number;
+  carryOverPoints: number;
+  pointsTargetToday: number;
   completionTarget: number;
   remainingDays: number;
   totalDays: number;
-  totalItems: number;
-  completedItems: number;
+  totalPoints: number;
+  completedPoints: number;
   colors: {
     currentRate: string;
     targetRate: string;

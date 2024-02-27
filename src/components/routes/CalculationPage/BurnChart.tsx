@@ -13,14 +13,14 @@ import {
 import { formatNumber } from "../../../utils";
 
 export default function BurnChart({
-  itemsAtStart,
+  pointsAtStart,
   days,
   remainingDays,
   currentRate,
   optimumRate,
   color,
 }: {
-  itemsAtStart: number;
+  pointsAtStart: number;
   days: number;
   remainingDays: number;
   currentRate: number;
@@ -29,8 +29,8 @@ export default function BurnChart({
 }) {
   const optimumValueColor = "#efefef";
   const lineChartData = Array.from({ length: days + 1 }).map((_, i) => {
-    const predictedValue = itemsAtStart - i * currentRate;
-    const optimumValue = itemsAtStart - i * optimumRate;
+    const predictedValue = pointsAtStart - i * currentRate;
+    const optimumValue = pointsAtStart - i * optimumRate;
     return {
       name: i === days - Math.floor(remainingDays) - 1 ? `${i}(today)` : i,
       optimum: formatNumber(optimumValue),

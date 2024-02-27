@@ -21,11 +21,11 @@ export default function Editor({
   const [remainingDays, setRemainingDays] = useState<string>(
     store.remainingDays?.toString() || ""
   );
-  const [completedItems, setCompletedItems] = useState<string>(
-    store.completedItems?.toString() || ""
+  const [completedPoints, setCompletedPoints] = useState<string>(
+    store.completedPoints?.toString() || ""
   );
-  const [totalItems, setTotalItems] = useState<string>(
-    store.totalItems?.toString() || ""
+  const [totalPoints, setTotalPoints] = useState<string>(
+    store.totalPoints?.toString() || ""
   );
   const [completionTarget, setCompletionTarget] = useState<string>(
     store.completionTarget?.toString() || "80"
@@ -36,8 +36,8 @@ export default function Editor({
       setName(store.name || "");
       setTotalDays(store.totalDays?.toString() || "");
       setRemainingDays(store.remainingDays?.toString() || "");
-      setCompletedItems(store.completedItems?.toString() || "");
-      setTotalItems(store.totalItems?.toString() || "");
+      setCompletedPoints(store.completedPoints?.toString() || "");
+      setTotalPoints(store.totalPoints?.toString() || "");
       setCompletionTarget(store.completionTarget?.toString() || "");
     }
   }, [store]);
@@ -47,16 +47,16 @@ export default function Editor({
       name,
       remainingDays: parseNumber(remainingDays),
       totalDays: parseNumber(totalDays),
-      completedItems: parseNumber(completedItems),
-      totalItems: parseNumber(totalItems),
+      completedPoints: parseNumber(completedPoints),
+      totalPoints: parseNumber(totalPoints),
       completionTarget: parseNumber(completionTarget),
     }),
     [
       name,
       remainingDays,
       totalDays,
-      completedItems,
-      totalItems,
+      completedPoints,
+      totalPoints,
       completionTarget,
     ]
   );
@@ -84,20 +84,20 @@ export default function Editor({
       <table className="editor">
         <tbody>
           <tr>
-            <th>Completed items</th>
+            <th>Completed points</th>
             <td>
               <TextInput
-                value={completedItems}
-                onChange={(value) => setCompletedItems(trimNumber(value))}
+                value={completedPoints}
+                onChange={(value) => setCompletedPoints(trimNumber(value))}
               />
             </td>
           </tr>
           <tr>
-            <th>Total items</th>
+            <th>Total points</th>
             <td>
               <TextInput
-                value={totalItems}
-                onChange={(value) => setTotalItems(trimNumber(value))}
+                value={totalPoints}
+                onChange={(value) => setTotalPoints(trimNumber(value))}
               />
             </td>
           </tr>

@@ -42,3 +42,8 @@ yarn dev
 - [ ] Validate current store data before displaying results
 - [ ] Add share button that copies link to clipboard and shows a text box you can also copy from
 - [ ] Add analytics
+- [ ] Confirmation dialog before reset
+- [ ] Add nice meta tags with summary and image
+- [ ] Add content to welcome page
+- [ ] Add text blurb to empty form
+- [ ] Add pages with agile and scrum content

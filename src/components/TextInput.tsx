@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 export default function TextInput({
   value,
   onChange,
@@ -11,9 +13,12 @@ export default function TextInput({
     <input
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className={`border px-2 py-1 rounded-md text-black text-lg bg-slate-200 ${
-        large ? "text-3xl w-full text-wrap text-center" : "text-right w-16"
-      }`}
+      className={clsx(
+        "border px-2 py-1 rounded-md bg-slate-900",
+        large
+          ? "text-3xl w-full text-wrap text-center font-semibold"
+          : "text-lg text-right w-16"
+      )}
     />
   );
 }

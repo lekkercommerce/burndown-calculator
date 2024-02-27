@@ -75,7 +75,7 @@ export default function Editor({
 
   return (
     <div className="flex flex-col items-center px-2 md:px-8 py-8 border border-slate-500 rounded-md">
-      <div className="mb-4">
+      <div className="mb-8">
         <a href="/calc" className="mr-4">
           <Button>RESET</Button>
         </a>
@@ -131,9 +131,11 @@ export default function Editor({
         </tbody>
       </table>
       {formDirty && (
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 mt-8">
           {hasSprintData && <Button onClick={discardChanges}>Cancel</Button>}
-          <Button onClick={onSave}>Save</Button>
+          <Button variant="primary" onClick={onSave}>
+            Save
+          </Button>
         </div>
       )}
     </div>

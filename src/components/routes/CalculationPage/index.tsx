@@ -5,6 +5,7 @@ import useStore from "../../../store/useStore";
 import { SprintData } from "../../../types";
 import BurnChart from "./BurnChart";
 import { styleVariants } from "../../../constants";
+import clsx from "clsx";
 
 export default function CalculationPage() {
   const [formDirty, setFormDirty] = useState(false);
@@ -111,7 +112,10 @@ export default function CalculationPage() {
           </div>
           {sprintData ? (
             <div
-              className={`px-4 py-10 md:py-4 ${formDirty ? "opacity-5" : ""}`}
+              className={clsx(
+                `px-4 py-10 md:py-4`,
+                formDirty ? "opacity-5" : ""
+              )}
             >
               <Result data={sprintData} />
             </div>
@@ -126,9 +130,10 @@ export default function CalculationPage() {
         </div>
       </div>
       <div
-        className={`md:mb-16 pt-4 md:pt-0 border-t md:border-t-0 border-gray-500 ${
-          formDirty ? "opacity-5" : ""
-        }`}
+        className={clsx(
+          "md:mb-16 pt-4 md:pt-0 border-t md:border-t-0 border-gray-500",
+          formDirty && "opacity-5"
+        )}
       >
         {sprintData && !formDirty && (
           <BurnChart

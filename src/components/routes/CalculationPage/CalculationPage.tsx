@@ -136,10 +136,7 @@ export default function CalculationPage() {
         </div>
       </div>
       <div
-        className={clsx(
-          "md:mb-16 pt-4 md:pt-0 border-t md:border-t-0 border-gray-500",
-          formDirty && "opacity-5"
-        )}
+        className={clsx("md:mb-8 border-gray-500", formDirty && "opacity-5")}
       >
         {sprintData && (
           <BurnChart
@@ -152,7 +149,7 @@ export default function CalculationPage() {
           />
         )}
       </div>
-      <div className=" text-center">@something</div>
+      <div className="text-center">@something</div>
     </div>
   );
 }

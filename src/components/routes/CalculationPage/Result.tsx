@@ -33,7 +33,7 @@ export default function Result({ data }: { data: SprintData }) {
           <div>Not good</div>
         </div>
       </div>
-      <div className="flex items-center border-b-4 pb-3">
+      <div className="flex items-center border-b-4 pb-2">
         <div className={`stats-card stats-card-main ${colors.targetRate}`}>
           {formatNumber(pointsTargetToday)}
         </div>

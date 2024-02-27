@@ -29,7 +29,7 @@
   }
 
   .stats-card.stats-card-main {
-    @apply px-2.5 py-2 mr-2.5 text-5xl h-fit
+    @apply px-2.5 py-2 mr-2.5 text-3xl h-fit
   }
 
   .stats-card.bg-warning {

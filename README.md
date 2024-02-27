@@ -44,7 +44,6 @@ yarn dev
 - [ ] Add share button that copies link to clipboard and shows a text box you can also copy from
 - [ ] Improve number trimmer function in editor
 - [ ] Add nice meta tags with summary and image
-- [ ] Add analytics
 - [ ] Add content to welcome page
-- [ ] Add text blurb to empty form
+- [ ] Add text blurb when results aren't shown yet
 - [ ] Add pages with agile and scrum content

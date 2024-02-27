@@ -135,7 +135,7 @@ export default function CalculationPage() {
           formDirty && "opacity-5"
         )}
       >
-        {sprintData && !formDirty && (
+        {sprintData && (
           <BurnChart
             days={sprintData.totalDays}
             remainingDays={sprintData.remainingDays}

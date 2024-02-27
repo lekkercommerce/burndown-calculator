@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import CalculationPage from "./components/routes/CalculationPage";
+import CalculationPage from "./components/routes/CalculationPage/CalculationPage";
 import WelcomePage from "./components/routes/WelcomePage";
 
 const router = createBrowserRouter([

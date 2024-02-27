@@ -44,7 +44,7 @@ export default function BurnChart({
     },
   ];
   return (
-    <div className="text-center mb-4 w-full flex flex-col md:flex-row">
+    <div className="text-center mb-4 w-full flex flex-col md:flex-row border-t md:border-t-0 border-gray-500">
       <div className="w-full md:w-1/2 pt-6 pb-4 pr-6 h-80">
         <div className="font-bold">Burn down chart</div>
         <ResponsiveContainer width="100%">
@@ -53,9 +53,12 @@ export default function BurnChart({
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
+            <XAxis dataKey="name" tick={{ fill: "white" }} />
+            <YAxis tick={{ fill: "white" }} />
+            <Tooltip
+              contentStyle={{ backgroundColor: "black" }}
+              labelFormatter={(label) => `Day ${label}`}
+            />
             <Legend />
             <Line
               type="monotone"
@@ -78,7 +81,7 @@ export default function BurnChart({
           <BarChart data={barChartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis tick={false} />
-            <YAxis />
+            <YAxis tick={{ fill: "white" }} />
             <Legend />
             <Bar dataKey="optimum" fill={optimumValueColor} />
             <Bar dataKey="current" fill={color} />

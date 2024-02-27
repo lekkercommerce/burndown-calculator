@@ -7,12 +7,14 @@ import TextInput from "../../TextInput";
 export default function Editor({
   formDirty,
   setFormDirty,
+  hasSprintData,
 }: {
   formDirty: boolean;
   setFormDirty: (isDirty: boolean) => void;
+  hasSprintData: boolean;
 }) {
   const { store, setStore } = useStore();
-  const [name, setName] = useState(store.name || "New ");
+  const [name, setName] = useState(store.name || "Sprint title");
   const [totalDays, setTotalDays] = useState<string>(
     store.totalDays?.toString() || ""
   );
@@ -28,7 +30,7 @@ export default function Editor({
 
   const discardChanges = useCallback(() => {
     if (store) {
-      setName(store.name || "New ");
+      setName(store.name || "");
       setTotalDays(store.totalDays?.toString() || "");
       setRemainingDays(store.remainingDays?.toString() || "");
       setCompletedItems(store.completedItems?.toString() || "");
@@ -60,14 +62,14 @@ export default function Editor({
   }
 
   return (
-    <div className="p-2 border border-slate-500 flex flex-col items-center">
+    <div className="flex flex-col items-center px-2 md:px-8 py-8 border border-slate-500 rounded-md">
       <div className="mb-4">
         <a href="/calc" className="mr-4">
           <Button>RESET</Button>
         </a>
         <TextInput value={name || ""} onChange={setName} large />
       </div>
-      <table className="editor mb-8">
+      <table className="editor">
         <tbody>
           <tr>
             <th>Completed items</th>
@@ -109,7 +111,7 @@ export default function Editor({
       </table>
       {formDirty && (
         <div className="flex space-x-4">
-          <Button onClick={discardChanges}>Cancel</Button>
+          {hasSprintData && <Button onClick={discardChanges}>Cancel</Button>}
           <Button onClick={onSave}>Save</Button>
         </div>
       )}

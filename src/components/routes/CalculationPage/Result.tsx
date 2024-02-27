@@ -45,7 +45,7 @@ export default function Result({ data }: { data: SprintData }) {
           </tr>
           <tr>
             <td>
-              <div className={`stats-card ${colors.targetRate} my-1.5`}>
+              <div className={`stats-card ${colors.targetRate}`}>
                 {formatNumber(itemsTargetToday)}
               </div>
             </td>
@@ -53,9 +53,6 @@ export default function Result({ data }: { data: SprintData }) {
           </tr>
           {currentRate !== optimumRate && (
             <>
-              <tr>
-                <td colSpan={2} className="pt-10"></td>
-              </tr>
               <tr>
                 <td>
                   <div className={`stats-card ${colors.currentRate}`}>
@@ -74,9 +71,9 @@ export default function Result({ data }: { data: SprintData }) {
                   per day is the velocity you need to complete all the tasks
                 </td>
               </tr>
-              <tr>
+              <tr className="border-t-4">
                 <td>
-                  <div className="stats-card bg-gray-500">
+                  <div className="stats-card bg-gray-600">
                     {formatNumber(projectedItems)}
                   </div>
                 </td>
@@ -87,7 +84,7 @@ export default function Result({ data }: { data: SprintData }) {
               </tr>
               <tr>
                 <td>
-                  <div className="stats-card bg-gray-500">
+                  <div className="stats-card bg-gray-600">
                     {formatNumber(carryOverItems)}
                   </div>
                 </td>
@@ -99,9 +96,9 @@ export default function Result({ data }: { data: SprintData }) {
       </table>
       {currentRate === optimumRate && (
         <div
-          className={`rounded-md text-center text-white text-2xl py-6 px-10 mt-4 ${styleVariants.success}`}
+          className={`rounded-md text-center text-white text-2xl font-semibold py-6 px-10 mt-4 ${styleVariants.success}`}
         >
-          The team is on track for a perfect finish
+          On track for a perfect finish
         </div>
       )}
     </div>

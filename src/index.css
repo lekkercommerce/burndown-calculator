@@ -3,17 +3,29 @@
 @tailwind utilities;
 
 @layer components {
+  .editor {
+    @apply mb-8 md:mb-0
+  }
+
   .editor th {
     @apply text-left px-4 align-top
   }
 
+  .editor td {
+    @apply pb-2
+  }
+
   .stats-table tr {
-    @apply border-b border-b-gray-500 align-top
+    @apply border-t border-gray-500 align-top
+  }
+
+  .stats-table td {
+    @apply py-2
   }
 
   .stats-card {
     text-shadow: 1px 1px 1px #808080;
-    @apply text-center text-white font-semibold px-1.5 p-0.5 my-1 mr-2 text-xl rounded-md
+    @apply text-center text-white font-semibold px-1.5 py-0.5 mr-2 text-xl rounded-md
   }
 
   .stats-card.bg-warning {

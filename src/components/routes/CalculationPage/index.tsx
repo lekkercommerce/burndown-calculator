@@ -86,26 +86,31 @@ export default function CalculationPage() {
   }, [totalDays, remainingDays, completedItems, totalItems]);
 
   return (
-    <div className="p-8">
-      <div className="mb-8 font-bold text-center text-3xl">
+    <div className="p-6">
+      <div className="mb-4 font-bold text-center text-3xl">
         Burndown Calculator
       </div>
       <div className="flex flex-col md:flex-row">
-        <Editor formDirty={formDirty} setFormDirty={setFormDirty} />
+        <Editor
+          formDirty={formDirty}
+          setFormDirty={setFormDirty}
+          hasSprintData={!!sprintData}
+        />
         {sprintData ? (
           <div className={formDirty ? "opacity-5" : ""}>
             <Result data={sprintData} />
           </div>
         ) : (
-          <div className="flex justify-center items-center w-full">
-            <h2>Some text about results here</h2>
+          <div className="flex justify-center items-center w-full p-8">
+            <div>
+              <p>Some text about results here</p>
+              <p>Some other text</p>
+            </div>
           </div>
         )}
       </div>
-      {sprintData && (
-        <div
-          className={`md:mb-80 pt-4 md:pt-0 ${formDirty ? "opacity-5" : ""}`}
-        >
+      <div className={`md:mb-80 pt-4 md:pt-0 ${formDirty ? "opacity-5" : ""}`}>
+        {sprintData && !formDirty && (
           <BurnChart
             days={sprintData.source.totalDays}
             remainingDays={sprintData.source.remainingDays}
@@ -114,8 +119,8 @@ export default function CalculationPage() {
             optimumRate={sprintData.optimumRate}
             color={sprintData.colors.line}
           />
-        </div>
-      )}
+        )}
+      </div>
       <div className=" text-center">@something</div>
     </div>
   );

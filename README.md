@@ -38,8 +38,8 @@ yarn dev
 
 ## Todo
 
-- [ ] Improve reset button look
-- [ ] Confirmation dialog before reset
+- [x] Improve reset button look
+- [x] Confirmation dialog before reset
 - [ ] Validate current store data before displaying results
 - [ ] Add share button that copies link to clipboard and shows a text box you can also copy from
 - [ ] Improve number trimmer function in editor
